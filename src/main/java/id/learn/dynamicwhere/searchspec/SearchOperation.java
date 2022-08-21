@@ -1,4 +1,4 @@
-package id.learn.dynamicwhere.searchSpec;
+package id.learn.dynamicwhere.searchspec;
 
 /**
  * Project Name     : dynamic-where

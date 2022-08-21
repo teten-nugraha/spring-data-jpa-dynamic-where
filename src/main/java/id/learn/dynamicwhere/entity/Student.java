@@ -4,10 +4,7 @@ import id.learn.dynamicwhere.enums.KotaAddress;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
@@ -21,8 +18,8 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Student {
 
@@ -31,8 +28,10 @@ public class Student {
     private Long id;
 
     private String name;
-    private int age;
+    private Integer age;
     private String address;
+
+    @Enumerated(EnumType.STRING)
     private KotaAddress kotaAddress;
 
     @Override
