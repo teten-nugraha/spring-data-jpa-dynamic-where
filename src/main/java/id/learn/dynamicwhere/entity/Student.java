@@ -1,5 +1,6 @@
 package id.learn.dynamicwhere.entity;
 
+import id.learn.dynamicwhere.enums.KotaAddress;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -20,7 +21,9 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Student {
 
     @Id
@@ -30,11 +33,16 @@ public class Student {
     private String name;
     private int age;
     private String address;
+    private KotaAddress kotaAddress;
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+            return false;
+        }
         Student student = (Student) o;
         return id != null && Objects.equals(id, student.id);
     }
