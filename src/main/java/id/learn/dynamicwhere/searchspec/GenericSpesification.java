@@ -1,4 +1,4 @@
-package id.learn.dynamicwhere.searchSpec;
+package id.learn.dynamicwhere.searchspec;
 
 import org.springframework.data.jpa.domain.Specification;
 
@@ -6,6 +6,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
 
 public class GenericSpesification<T> implements Specification<T> {
 
+    @Serial
     private static final long serialVersionUID = 1900581010229669687L;
 
     private List<SearchCriteria> list;

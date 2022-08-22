@@ -1,8 +1,8 @@
 package id.learn.dynamicwhere;
 
 import id.learn.dynamicwhere.entity.Student;
+import id.learn.dynamicwhere.enums.KotaAddress;
 import id.learn.dynamicwhere.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,8 +13,11 @@ import java.util.List;
 @SpringBootApplication
 public class DynamicWhereApplication implements CommandLineRunner {
 
-	@Autowired
-	private StudentRepository studentRepository;
+	private final StudentRepository studentRepository;
+
+	public DynamicWhereApplication(StudentRepository studentRepository) {
+		this.studentRepository = studentRepository;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(DynamicWhereApplication.class, args);
@@ -25,27 +28,55 @@ public class DynamicWhereApplication implements CommandLineRunner {
 
 		studentRepository.deleteAll();
 
-		Student student1 = new Student();
-		student1.setName("Budi");
-		student1.setAge(26);
-		student1.setAddress("BANDUNG");
+		Student student1 = Student.builder()
+				.name("Budi")
+				.address("aSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
+						"dhimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
+				.age(26)
+				.kotaAddress(KotaAddress.BANDUNG)
+				.build();
 
-		Student student2 = new Student();
-		student2.setName("Djaka");
-		student2.setAge(28);
-		student2.setAddress("JAKARTA");
+		Student student2 = Student.builder()
+				.name("Djaka")
+				.address("bSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
+						"chimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
+				.age(28)
+				.kotaAddress(KotaAddress.JAKARTA)
+				.build();
 
-		Student student3 = new Student();
-		student3.setName("Handoko");
-		student3.setAge(21);
-		student3.setAddress("BANDUNG");
+		Student student3 = Student.builder()
+				.name("Budi")
+				.address("cSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
+						"bhimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
+				.age(21)
+				.kotaAddress(KotaAddress.BANDUNG)
+				.build();
 
-		Student student4 = new Student();
-		student4.setName("Turi");
-		student4.setAge(28);
-		student4.setAddress("BANDUNG");
+		Student student4 = Student.builder()
+				.name("Turu")
+				.address("dSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
+						"ahimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
+				.age(28)
+				.kotaAddress(KotaAddress.BANDUNG)
+				.build();
 
-		List<Student> mockStudentList = Arrays.asList(student1, student2, student3, student4);
+		Student student5 = Student.builder()
+				.name("Maya")
+				.address("vvvvdSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
+						"avavavahimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
+				.age(27)
+				.kotaAddress(KotaAddress.DEPOK)
+				.build();
+
+		Student student6 = Student.builder()
+				.name("Dani")
+				.address("zzzzzdSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
+						"zzzzzahimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
+				.age(29)
+				.kotaAddress(KotaAddress.BOGOR)
+				.build();
+
+		List<Student> mockStudentList = Arrays.asList(student1, student2, student3, student4, student5, student6);
 
 		studentRepository.saveAll(mockStudentList);
 

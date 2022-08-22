@@ -1,9 +1,11 @@
 package id.learn.dynamicwhere.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import id.learn.dynamicwhere.enums.KotaAddress;
+import lombok.*;
+import org.hibernate.Hibernate;
+
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * Project Name     : dynamic-where
@@ -13,6 +15,12 @@ import javax.persistence.Id;
  */
 
 @Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Student {
 
     @Id
@@ -20,51 +28,27 @@ public class Student {
     private Long id;
 
     private String name;
-    private int age;
+    private Integer age;
     private String address;
 
-    public Student() {
-    }
+    @Enumerated(EnumType.STRING)
+    private KotaAddress kotaAddress;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+            return false;
+        }
+        Student student = (Student) o;
+        return id != null && Objects.equals(id, student.id);
     }
 
     @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", address='" + address + '\'' +
-                '}';
+    public int hashCode() {
+        return getClass().hashCode();
     }
+
 }
