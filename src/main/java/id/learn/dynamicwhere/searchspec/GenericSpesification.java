@@ -1,12 +1,14 @@
 package id.learn.dynamicwhere.searchspec;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.lang.NonNull;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +19,12 @@ import java.util.List;
  * @author Teten Nugraha
  */
 
-public class GenericSpesification<T> implements Specification<T> {
+public class GenericSpesification<T extends Serializable> implements Specification<T> {
 
     @Serial
-    private static final long serialVersionUID = 1900581010229669687L;
+    private static final long serialVersionUID = 8642590411997237266L;
 
-    private List<SearchCriteria> list;
+    private final List<SearchCriteria> list;
 
     public GenericSpesification() {
         this.list = new ArrayList<>();
@@ -32,43 +34,51 @@ public class GenericSpesification<T> implements Specification<T> {
         list.add(criteria);
     }
 
+    /**
+     * Creates a WHERE clause for a query of the referenced entity in form of a {@link Predicate} for the given
+     * {@link Root} and {@link CriteriaQuery}.
+     *
+     * @param root            must not be {@literal null}.
+     * @param query           must not be {@literal null}.
+     * @param criteriaBuilder must not be {@literal null}.
+     * @return a {@link Predicate}, may be {@literal null}.
+     */
     @Override
-    public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
-
-        //create a new predicate list
+    public Predicate toPredicate(@NonNull Root<T> root, @NonNull CriteriaQuery<?> query, @NonNull CriteriaBuilder criteriaBuilder) {
+        // create a new predicate list
         List<Predicate> predicates = new ArrayList<>();
 
-        //add add criteria to predicates
+        // add add criteria to predicates
         for (SearchCriteria criteria : list) {
             if (criteria.getOperation().equals(SearchOperation.GREATER_THAN)) {
-                predicates.add(builder.greaterThan(
+                predicates.add(criteriaBuilder.greaterThan(
                         root.get(criteria.getKey()), criteria.getValue().toString()));
             } else if (criteria.getOperation().equals(SearchOperation.LESS_THAN)) {
-                predicates.add(builder.lessThan(
+                predicates.add(criteriaBuilder.lessThan(
                         root.get(criteria.getKey()), criteria.getValue().toString()));
             } else if (criteria.getOperation().equals(SearchOperation.GREATER_THAN_EQUAL)) {
-                predicates.add(builder.greaterThanOrEqualTo(
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(
                         root.get(criteria.getKey()), criteria.getValue().toString()));
             } else if (criteria.getOperation().equals(SearchOperation.LESS_THAN_EQUAL)) {
-                predicates.add(builder.lessThanOrEqualTo(
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(
                         root.get(criteria.getKey()), criteria.getValue().toString()));
             } else if (criteria.getOperation().equals(SearchOperation.NOT_EQUAL)) {
-                predicates.add(builder.notEqual(
+                predicates.add(criteriaBuilder.notEqual(
                         root.get(criteria.getKey()), criteria.getValue()));
             } else if (criteria.getOperation().equals(SearchOperation.EQUAL)) {
-                predicates.add(builder.equal(
+                predicates.add(criteriaBuilder.equal(
                         root.get(criteria.getKey()), criteria.getValue()));
             } else if (criteria.getOperation().equals(SearchOperation.MATCH)) {
-                predicates.add(builder.like(
-                        builder.lower(root.get(criteria.getKey())),
+                predicates.add(criteriaBuilder.like(
+                        criteriaBuilder.lower(root.get(criteria.getKey())),
                         "%" + criteria.getValue().toString().toLowerCase() + "%"));
             } else if (criteria.getOperation().equals(SearchOperation.MATCH_END)) {
-                predicates.add(builder.like(
-                        builder.lower(root.get(criteria.getKey())),
+                predicates.add(criteriaBuilder.like(
+                        criteriaBuilder.lower(root.get(criteria.getKey())),
                         criteria.getValue().toString().toLowerCase() + "%"));
             }
         }
 
-        return builder.and(predicates.toArray(new Predicate[0]));
+        return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 }
