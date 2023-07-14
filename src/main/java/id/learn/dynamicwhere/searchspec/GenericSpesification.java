@@ -1,5 +1,6 @@
 package id.learn.dynamicwhere.searchspec;
 
+import id.learn.dynamicwhere.enums.SearchOperation;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -13,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Project Name     : dynamic-where
- * Date Time        : 6/10/2020
+ * Project Name: dynamic-where
+ * Date Time: 6/10/2020
  *
  * @author Teten Nugraha
  */
@@ -26,9 +27,10 @@ public class GenericSpesification<T extends Serializable> implements Specificati
 
     private final List<SearchCriteria> list;
 
-    public GenericSpesification() {
-        this.list = new ArrayList<>();
+    public GenericSpesification(List<SearchCriteria> list) {
+        this.list = list;
     }
+
 
     public void add(SearchCriteria criteria) {
         list.add(criteria);
@@ -48,7 +50,7 @@ public class GenericSpesification<T extends Serializable> implements Specificati
         // create a new predicate list
         List<Predicate> predicates = new ArrayList<>();
 
-        // add add criteria to predicates
+        // add criteria to predicates
         for (SearchCriteria criteria : list) {
             if (criteria.getOperation().equals(SearchOperation.GREATER_THAN)) {
                 predicates.add(criteriaBuilder.greaterThan(
@@ -64,10 +66,10 @@ public class GenericSpesification<T extends Serializable> implements Specificati
                         root.get(criteria.getKey()), criteria.getValue().toString()));
             } else if (criteria.getOperation().equals(SearchOperation.NOT_EQUAL)) {
                 predicates.add(criteriaBuilder.notEqual(
-                        root.get(criteria.getKey()), criteria.getValue()));
+                        root.get(criteria.getKey()), criteria.getValue().toString()));
             } else if (criteria.getOperation().equals(SearchOperation.EQUAL)) {
                 predicates.add(criteriaBuilder.equal(
-                        root.get(criteria.getKey()), criteria.getValue()));
+                        root.get(criteria.getKey()), criteria.getValue().toString()));
             } else if (criteria.getOperation().equals(SearchOperation.MATCH)) {
                 predicates.add(criteriaBuilder.like(
                         criteriaBuilder.lower(root.get(criteria.getKey())),

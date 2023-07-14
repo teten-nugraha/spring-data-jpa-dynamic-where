@@ -1,20 +1,19 @@
 package id.learn.dynamicwhere.entity;
 
-import id.learn.dynamicwhere.enums.KotaAddress;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
-import org.hibernate.proxy.HibernateProxy;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Project Name     : dynamic-where
- * Date Time        : 6/10/2020
+ * Project Name: dynamic-where
+ * Date Time: 6/10/2020
  *
  * @author Teten Nugraha
  */
@@ -34,37 +33,48 @@ public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @NotBlank
     @NotEmpty
+    @NotNull
+    @Column(name = "name")
     private String name;
 
     @NotNull
+    @Positive
+    @Column(name = "age")
     private Integer age;
 
-    @NotBlank
     @NotEmpty
+    @NotNull
+    @Column(name = "address")
     private String address;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private KotaAddress kotaAddress;
+    @Column(name = "kota_address")
+    private String kotaAddress;
 
     @Override
-    public final boolean equals(Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null) return false;
-        if (getClass() != o.getClass()) return false;
-        Class<?> oEffectiveClass = o instanceof HibernateProxy hibernateProxy ? (hibernateProxy).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
-        Class<?> thisEffectiveClass = this instanceof HibernateProxy hibernateProxy ? (hibernateProxy).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
-        if (thisEffectiveClass != oEffectiveClass) return false;
-        Student student = (Student) o;
-        return getId() != null && Objects.equals(getId(), student.getId());
+        if (!(o instanceof Student student)) return false;
+
+        if (!getId().equals(student.getId())) return false;
+        if (!getName().equals(student.getName())) return false;
+        if (!getAge().equals(student.getAge())) return false;
+        if (!getAddress().equals(student.getAddress())) return false;
+        return Objects.equals(getKotaAddress(), student.getKotaAddress());
     }
 
     @Override
-    public final int hashCode() {
-        return getClass().hashCode();
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getAge().hashCode();
+        result = 31 * result + getAddress().hashCode();
+        result = 31 * result + getKotaAddress().hashCode();
+        return result;
     }
 }

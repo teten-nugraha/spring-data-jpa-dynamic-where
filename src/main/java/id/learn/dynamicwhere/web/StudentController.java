@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Project Name     : dynamic-where
- * Date Time        : 6/10/2020
+ * Project Name: dynamic-where
+ * Date Time: 6/10/2020
  *
  * @author Teten Nugraha
  */
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/api/v1/student")
 public class StudentController {
 
     private final StudentService studentService;

@@ -1,8 +1,8 @@
-package id.learn.dynamicwhere.searchspec;
+package id.learn.dynamicwhere.enums;
 
 /**
- * Project Name     : dynamic-where
- * Date Time        : 6/10/2020
+ * Project Name: dynamic-where
+ * Date Time: 6/10/2020
  *
  * @author Teten Nugraha
  */

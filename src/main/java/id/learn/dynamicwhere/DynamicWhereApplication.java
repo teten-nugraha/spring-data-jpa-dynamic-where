@@ -24,16 +24,16 @@ public class DynamicWhereApplication implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
 
 		studentRepository.deleteAll();
 
 		Student student1 = Student.builder()
-				.name("Budi")
+				.name("Bubu")
 				.address("aSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
 						"dhimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
-				.age(26)
-				.kotaAddress(KotaAddress.BANDUNG)
+				.age(25)
+				.kotaAddress(String.valueOf(KotaAddress.BANDUNG))
 				.build();
 
 		Student student2 = Student.builder()
@@ -41,23 +41,23 @@ public class DynamicWhereApplication implements CommandLineRunner {
 				.address("bSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
 						"chimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
 				.age(28)
-				.kotaAddress(KotaAddress.JAKARTA)
+				.kotaAddress(String.valueOf(KotaAddress.JAKARTA))
 				.build();
 
 		Student student3 = Student.builder()
 				.name("Budi")
 				.address("cSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
 						"bhimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
-				.age(21)
-				.kotaAddress(KotaAddress.BANDUNG)
+				.age(25)
+				.kotaAddress(String.valueOf(KotaAddress.BANDUNG))
 				.build();
 
 		Student student4 = Student.builder()
 				.name("Turu")
 				.address("dSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
 						"ahimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
-				.age(28)
-				.kotaAddress(KotaAddress.BANDUNG)
+				.age(25)
+				.kotaAddress(String.valueOf(KotaAddress.BANDUNG))
 				.build();
 
 		Student student5 = Student.builder()
@@ -65,7 +65,7 @@ public class DynamicWhereApplication implements CommandLineRunner {
 				.address("vvvvdSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
 						"avavavahimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
 				.age(27)
-				.kotaAddress(KotaAddress.DEPOK)
+				.kotaAddress(String.valueOf(KotaAddress.DEPOK))
 				.build();
 
 		Student student6 = Student.builder()
@@ -73,7 +73,7 @@ public class DynamicWhereApplication implements CommandLineRunner {
 				.address("zzzzzzxczxczxczxcdSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
 						"azzzzzahzxczxczxcimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
 				.age(29)
-				.kotaAddress(KotaAddress.BOGOR)
+				.kotaAddress(String.valueOf(KotaAddress.BOGOR))
 				.build();
 
 		Student student7 = Student.builder()
@@ -81,7 +81,7 @@ public class DynamicWhereApplication implements CommandLineRunner {
 				.address("ooooooooooooooodSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
 						"zzzzzahimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
 				.age(29)
-				.kotaAddress(KotaAddress.BOGOR)
+				.kotaAddress(String.valueOf(KotaAddress.BOGOR))
 				.build();
 
 		Student student8 = Student.builder()
@@ -89,7 +89,7 @@ public class DynamicWhereApplication implements CommandLineRunner {
 				.address("aaaaaaaaaaaadSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
 						"aaaaaaaaaaaaaaaahimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
 				.age(40)
-				.kotaAddress(KotaAddress.BANDUNG)
+				.kotaAddress(String.valueOf(KotaAddress.BANDUNG))
 				.build();
 
 		Student student9 = Student.builder()
@@ -97,7 +97,7 @@ public class DynamicWhereApplication implements CommandLineRunner {
 				.address("bbbbbbbbbbdSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
 						"zzzzzahimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend")
 				.age(31)
-				.kotaAddress(KotaAddress.BANDUNG)
+				.kotaAddress(String.valueOf(KotaAddress.BANDUNG))
 				.build();
 
 		Student student10 = Student.builder()
@@ -105,7 +105,7 @@ public class DynamicWhereApplication implements CommandLineRunner {
 				.address("xxxxxxdSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
 						"zzasdasdzzzahimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravidsda cubilia placerat eleifend")
 				.age(30)
-				.kotaAddress(KotaAddress.BANDUNG)
+				.kotaAddress(String.valueOf(KotaAddress.BANDUNG))
 				.build();
 
 		List<Student> mockStudentList = Arrays.asList(student1,

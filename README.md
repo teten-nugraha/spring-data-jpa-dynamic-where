@@ -10,5 +10,5 @@ docker run --rm \
 -p 6603:3306 \
 -v "$PWD/docker/demo_dynamic_where-db/conf.d":/etc/mysql/conf.d \
 -v "$PWD/storage/docker/demo_dynamic_where-db-data":/var/lib/mysql \
-mysql
+mysql:8
 ```

@@ -1,10 +1,10 @@
 package id.learn.dynamicwhere.service.impl;
 
 import id.learn.dynamicwhere.entity.Student;
+import id.learn.dynamicwhere.enums.SearchOperation;
 import id.learn.dynamicwhere.repository.StudentRepository;
 import id.learn.dynamicwhere.searchspec.GenericSpesification;
 import id.learn.dynamicwhere.searchspec.SearchCriteria;
-import id.learn.dynamicwhere.searchspec.SearchOperation;
 import id.learn.dynamicwhere.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Project Name     : dynamic-where
- * Date Time        : 6/10/2020
+ * Project Name: dynamic-where
+ * Date Time: 6/10/2020
  *
  * @author Teten Nugraha
  */
@@ -24,19 +24,19 @@ import java.util.List;
 @Transactional
 public class StudentServiceImpl implements StudentService {
 
-    private static final String ADDRESS = "address";
-    private static final String ADDRESS_VALUE = "aSapien non sit rhoncus dictum quisque aliquet sed hendrerit class enim elit erat diam " +
-            "dhimenaeos dictumst mi pretium ad aliquam in lectus letius ex gravida cubilia placerat eleifend";
-
-    private static final String KOTA_ADDRESS = "kota_address";
+    private static final String KOTA_ADDRESS = "kotaAddress";
     private static final String KOTA_ADDRESS_VALUE = "BANDUNG";
     private static final String AGE = "age";
-    private static final Integer AGE_VALUE = 25;
+    private static final String AGE_VALUE = "25";
 
     private final StudentRepository studentRepository;
 
-    public StudentServiceImpl(StudentRepository studentRepository) {
+    private final List<SearchCriteria> list;
+
+
+    public StudentServiceImpl(StudentRepository studentRepository, List<SearchCriteria> list) {
         this.studentRepository = studentRepository;
+        this.list = list;
     }
 
     @Override
@@ -48,13 +48,12 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> findStudentsWithPredicate() {
 
         /*
-         * find Student which stay in BANDUNG and age greather than 25 years old
+         * find Students which stay in BANDUNG and age greater than 25 years old
          */
 
-        GenericSpesification<Student> genericSpesification = new GenericSpesification<>();
-        genericSpesification.add(new SearchCriteria(ADDRESS, ADDRESS_VALUE, SearchOperation.EQUAL));
-        genericSpesification.add(new SearchCriteria(KOTA_ADDRESS, KOTA_ADDRESS_VALUE, SearchOperation.EQUAL));
+        GenericSpesification<Student> genericSpesification = new GenericSpesification<>(list);
         genericSpesification.add(new SearchCriteria(AGE, AGE_VALUE, SearchOperation.GREATER_THAN));
+        genericSpesification.add(new SearchCriteria(KOTA_ADDRESS, KOTA_ADDRESS_VALUE, SearchOperation.EQUAL));
 
         return studentRepository.findAll(genericSpesification);
     }
